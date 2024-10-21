@@ -1,5 +1,5 @@
 
 
 
-php artisan serve
-npm run dev
+//php artisan serve
+//npm run dev
