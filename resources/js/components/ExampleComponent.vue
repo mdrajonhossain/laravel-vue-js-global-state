@@ -1,30 +1,32 @@
 <template>
     <button @click="incrementCounter">Increment</button>
-    <button @click="showhide">Show/Hide</button>
-    <br/>
-    <div v-if="show">{{ show }}</div>    
+    <p>{{ counter }}</p>
+    <span>{{ name }}</span>
+    <br />
 </template>
 
-
-
-
-
-
 <script>
-import { computed } from 'vue';
+import { ref, watchEffect } from 'vue';
 import store from '../store';
 
 export default {
-    setup() {        
-        const incrementCounter = () => store.increment();
-        const showhide = () => store.showhide();
+    setup() {
+        const counter = ref(store.counter);
+        const name = ref(store.name);
 
-        const show = computed(() => store.show);
-        
-        return {
-            showhide,
-            show,
-            incrementCounter
+        const incrementCounter = () => {
+            store.increment();             
+        };
+
+        watchEffect(() => {
+            counter.value = store.counter;
+            name.value = store.name;
+        });
+
+        return {           
+            counter,
+            name,
+            incrementCounter,
         };
     },
 };
